@@ -1,0 +1,157 @@
+:root {
+    --pink-soft: #ffccd5;
+    --pink-strong: #ff8fa3;
+    --bg-color: #fff0f3;
+    --text-color: #595959;
+    --white: #ffffff;
+}
+
+body {
+    font-family: 'Poppins', sans-serif;
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    overflow: hidden;
+}
+
+/* Kartu Utama */
+.card {
+    background: var(--white);
+    width: 90%;
+    max-width: 400px;
+    padding: 30px;
+    border-radius: 20px;
+    box-shadow: 0 10px 25px rgba(255, 143, 163, 0.3);
+    text-align: center;
+    position: relative;
+    z-index: 10;
+}
+
+h1 {
+    font-family: 'Sacramento', cursive;
+    font-size: 2.5rem;
+    color: var(--pink-strong);
+    margin: 0 0 10px 0;
+}
+
+h3 {
+    color: var(--pink-strong);
+}
+
+p {
+    line-height: 1.6;
+    margin-bottom: 20px;
+}
+
+.date {
+    font-weight: bold;
+    color: #888;
+    margin-top: -10px;
+    font-size: 0.9rem;
+}
+
+.note {
+    font-size: 0.8rem;
+    color: var(--pink-strong);
+}
+
+/* Utility Classes */
+.hidden {
+    display: none;
+}
+
+/* Tombol Utama */
+.btn {
+    background-color: var(--pink-strong);
+    color: white;
+    border: none;
+    padding: 12px 30px;
+    border-radius: 50px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: transform 0.2s;
+    font-weight: 600;
+}
+
+.btn:hover {
+    transform: scale(1.05);
+    background-color: #ff758f;
+}
+
+/* Pilihan Jawaban */
+.options {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.option-btn {
+    background: var(--pink-soft);
+    color: #d6336c;
+    border: none;
+    padding: 12px;
+    border-radius: 12px;
+    cursor: pointer;
+    font-weight: 500;
+    transition: 0.2s;
+}
+
+.option-btn:hover {
+    background: var(--pink-strong);
+    color: white;
+}
+
+/* Grid Hadiah */
+.gift-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 15px;
+    margin-top: 20px;
+}
+
+.gift-item {
+    background: #fff;
+    border: 2px solid var(--pink-soft);
+    border-radius: 15px;
+    padding: 15px;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+.gift-item:hover {
+    border-color: var(--pink-strong);
+    transform: translateY(-5px);
+    background-color: #fff5f7;
+}
+
+.emoji {
+    font-size: 2rem;
+    display: block;
+    margin-bottom: 5px;
+}
+
+.special {
+    grid-column: span 2; /* Agar lebar penuh */
+    background-color: #e3f2fd;
+    border-color: #90caf9;
+    color: #1565c0;
+}
+
+/* Animasi Hati Background */
+.heart-bg {
+    position: absolute;
+    color: var(--pink-strong);
+    opacity: 0.4;
+    top: -10vh;
+    animation: fall linear forwards; 
+    /* forwards agar hilang setelah animasi */
+}
+
+@keyframes fall {
+    to { transform: translateY(110vh); }
+}
