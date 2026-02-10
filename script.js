@@ -1,5 +1,5 @@
 // --- CONFIG ---
-const NOMOR_WA = "6285156174283"; // GANTI NOMOR DI SINI (Tanpa +)
+const NOMOR_WA = "628123456789"; // GANTI NOMOR DI SINI (Tanpa +)
 
 // --- AUDIO CONTROL ---
 let isMusicPlaying = false;
@@ -36,30 +36,57 @@ function openEnvelope() {
 }
 
 // --- BAGIAN 2: KUIS ---
+// --- DATA KUIS: HARAPAN & WISH NURSITA 23rd ---
 const quizData = [
     {
-        q: "Jujur, hubungan kita ini statusnya apa?",
-        opt: ["Temen Biasa", "Temen Rasa Pacar", "HTS (Hubungan Tanpa Status)", "Jodoh (Aamiin)"],
-        correct: 3, // Index 3 = Jodoh (Biar dia seneng wkwk)
-        msg_correct: "Nah gitu dong, peka! 🎉",
-        msg_wrong: "Yakin jawab itu? Coba lagi! 🤨"
+        q: "Di usia ke-23 ini, apa sih 'self-reward' yang paling Nursita pengen dapet kalau berhasil capai target?",
+        opt: [
+            "Solo traveling biar makin mandiri", 
+            "Beli barang yang udah lama di-wishlist", 
+            "Staycation tenang tanpa gangguan chat kerjaan", 
+            "Makan enak sepuasnya tanpa mikir kalori"
+        ],
+        correct: 3, // Semua pilihan bagus, kita beri efek apresiasi di bawah
+        msg_correct: "Apapun pilihannya, kamu layak dapet itu setelah kerja kerasmu! ✨",
+        msg_wrong: "Pilihan yang mantap! Semoga segera terlaksana ya! 🥂"
     },
     {
-        q: "Apa makanan yang paling pas buat ngerayain ultah ke-23?",
-        opt: ["Sate Maranggi Cipanas", "Makan Angin", "Janji Manis", "Bubur Diaduk"],
-        correct: 0,
-        msg_correct: "Gas! Otw Cipanas 🚗",
-        msg_wrong: "Dih, masa makan itu. Yang bener dong!"
-    },
-    {
-        q: "Kalau aku ngajak jalan, ekspektasi kamu apa?",
-        opt: ["Ditraktir", "Diimamin", "Diajak Ghibah", "Semua Benar"],
+        q: "Target utama Nursita untuk diri sendiri di tahun 2026 ini apa nih?",
+        opt: [
+            "Makin jago ngatur waktu & gak gampang capek", 
+            "Punya tabungan yang lebih dari cukup", 
+            "Lebih berani buat nyoba hal-hal baru", 
+            "Makin sayang sama diri sendiri (Self-love)"
+        ],
         correct: 3,
-        msg_correct: "Paket lengkap pokoknya! ❤️",
-        msg_wrong: "Kurang lengkap tuh jawabannya..."
+        msg_correct: "Self-love itu kunci! Bangga banget kalau kamu pilih ini. ❤️",
+        msg_wrong: "Aamiin! Semoga dilancarkan semua niat baiknya ya. 🌟"
+    },
+    {
+        q: "Kalau ada satu kebiasaan lama yang pengen Nursita tinggalin di umur 23, itu adalah...",
+        opt: [
+            "Sering begadang gak jelas", 
+            "Suka nunda-nunda pekerjaan", 
+            "Overthinking hal yang belum tentu terjadi", 
+            "Terlalu gak enak hati sama orang lain"
+        ],
+        correct: 2,
+        msg_correct: "Setuju! Duniamu bakal jauh lebih tenang tanpa overthinking. 🧘‍♀️",
+        msg_wrong: "Langkah kecil buat perubahan besar. Semangat upgrade diri! 🚀"
+    },
+    {
+        q: "Terakhir, doa paling tulus dari Nursita untuk dirinya sendiri hari ini adalah?",
+        opt: [
+            "Semoga selalu dikelilingi orang-orang tulus", 
+            "Semoga sehat fisik dan mental terus", 
+            "Semoga rezeki mengalir dari pintu mana aja", 
+            "Semua jawaban di atas (Aamiin Paling Serius)"
+        ],
+        correct: 3,
+        msg_correct: "Aamiin Ya Allah! Semoga dikabulkan secepatnya. 🙏✨",
+        msg_wrong: "Doa terbaik juga dari aku buat kamu di sini. 😊"
     }
 ];
-
 let currentQuiz = 0;
 
 function startQuiz() {
@@ -126,11 +153,10 @@ function checkAnswer(selectedIndex, element) {
 }
 
 // --- BAGIAN 3: PRANK BUTTON (JAIL) ---
-// --- UPDATE FITUR TOMBOL JAIL ---
 function initPrankButton() {
     const btnJail = document.getElementById('btnJail');
     
-    // 1. Fungsi agar tombol lari (opsional, bisa dimatikan jika ingin fokus ke dialog)
+    // Logic Lari-larian
     const moveBtn = () => {
         const x = Math.random() * (window.innerWidth - 150);
         const y = Math.random() * (window.innerHeight - 150);
@@ -139,31 +165,12 @@ function initPrankButton() {
         btnJail.style.top = y + 'px';
     };
 
-    // Jalankan efek lari hanya di layar lebar (desktop) agar tidak menyulitkan di HP
-    if (window.innerWidth > 768) {
-        btnJail.addEventListener('mouseover', moveBtn);
-    }
-
-    // 2. Logika Dialog Interaktif saat diklik
-    btnJail.onclick = function() {
-        // Dialog Pertama
-        alert("Eits, tombol ini rusak! Belum kebuka kuncinya, soalnya kuncinya ada di kamu... 😜");
-        
-        // Dialog Kedua (Konfirmasi)
-        let yakin = confirm("Yakin mau buka kuncinya sekarang? Kamunya udah siap belum?");
-        
-        if (yakin) {
-            // Jika dia klik "OK"
-            alert("Ciee yang udah siap! Kalau gitu, kabari aku langsung ya pas kita makan sate nanti. Bilang aja: 'Kuncinya mau aku kasih sekarang'. Aku tunggu! ❤️");
-            
-            // Kirim pesan otomatis ke WA kalau dia berani klik siap
-            const pesanSiapp = "Halo! Tadi aku klik tombol 'Hubungan Jelas' di website kamu, dan katanya aku udah siap buka kuncinya... 🤔";
-            window.open(`https://wa.me/${NOMOR_WA}?text=${encodeURIComponent(pesanSiapp)}`, '_blank');
-        } else {
-            // Jika dia klik "Cancel"
-            alert("Yah, gajadi? Yaudah deh, aku tunggu sampai kamu beneran siap ya. Santai aja, aku nggak kemana-mana kok. 😋");
-        }
-    };
+    btnJail.addEventListener('mouseover', moveBtn); // Untuk PC
+    btnJail.addEventListener('click', (e) => { // Untuk HP (kalo kepencet)
+        e.preventDefault();
+        alert("Eits, tombol ini rusak! Belum kebuka kuncinya 😜");
+        moveBtn();
+    });
 }
 
 // --- KIRIM WA ---
