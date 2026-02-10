@@ -141,7 +141,7 @@ function initPrankButton() {
     btnJail.addEventListener('mouseover', moveBtn); // Untuk PC
     btnJail.addEventListener('click', (e) => { // Untuk HP (kalo kepencet)
         e.preventDefault();
-        alert("Eits, tombol ini rusak! Belum kebuka kuncinya 😜");
+        alert("Eits, tombol ini rusak! Belum kebuka kuncinya, soalnya kuncinya ada dikamu 😜");
         moveBtn();
     });
 }
