@@ -3,69 +3,92 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Happy 23rd Birthday!</title>
+    <title>Happy Level Up 23! 🎉</title>
     <link rel="stylesheet" href="style.css">
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&family=Sacramento&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;800&family=Fredoka+One&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.5.1/dist/confetti.browser.min.js"></script>
 </head>
 <body>
 
-    <div id="bg-animation"></div>
+    <div class="background">
+        <div class="blob blob-1"></div>
+        <div class="blob blob-2"></div>
+        <div class="blob blob-3"></div>
+    </div>
 
-    <div class="card">
-        
-        <div id="page-1" class="page">
-            <h1>Happy 23rd! 🎂</h1>
-            <p class="date">11 Februari 2026</p>
-            <p>Cieee yang udah level 23! Selamat ulang tahun ya.</p>
-            <p>Semoga di umur segini makin dewasa, rezekinya lancar, dan... makin sayang sama aku (eh? wkwk). 🤭</p>
-            <p>Aku ada kuis receh nih sebelum kamu ambil kado. Gas?</p>
-            <button class="btn" onclick="nextPage(1)">Gasss Lanjut! 🚀</button>
-        </div>
+    <button id="musicBtn" onclick="toggleMusic()">
+        <i class="fas fa-music"></i>
+    </button>
+    <audio id="bgMusic" loop>
+        <source src="piano.mp3/piano.mp3" type="audio/mpeg">
+    </audio>
 
-        <div id="page-2" class="page hidden">
-            <h3>Pertanyaan 1/3</h3>
-            <p>Jujur-jujuran nih. Siapa yang paling sering <em>mood swing</em> gak jelas?</p>
-            <div class="options">
-                <button class="option-btn" onclick="nextPage(2)">Aku sih kayaknya 🙄</button>
-                <button class="option-btn" onclick="nextPage(2)">Jelas KAMU lah! 🤣</button>
-            </div>
-        </div>
+    <div class="main-container">
 
-        <div id="page-3" class="page hidden">
-            <h3>Pertanyaan 2/3</h3>
-            <p>Kalau disuruh milih kado impian yang nggak bisa dibeli pake uang, kamu pilih?</p>
-            <div class="options">
-                <button class="option-btn" onclick="nextPage(3)">Voucher bebas stres seumur hidup.</button>
-                <button class="option-btn" onclick="nextPage(3)">Kepastian yang nggak bikin tebak-tebakan tiap hari.</button>
-            </div>
-        </div>
-
-        <div id="page-4" class="page hidden">
-            <h3>Pertanyaan Terakhir (BONUS HEHEHE😁)</h3>
-            <p>Harapan terselubung kamu di ulang tahun ke-23 ini apa?</p>
-            <div class="options">
-                <button class="option-btn" onclick="nextPage(4)">Status kita jadi jelas 🫣</button>
-                <button class="option-btn" onclick="nextPage(4)">Bisa jalan-jalan terus ✈️</button>
-            </div>
-        </div>
-
-        <div id="page-5" class="page hidden">
-            <h1>Yey Selesai! 🎉</h1>
-            <p>Sekarang pilih <strong>satu reward</strong> spesial dari aku.</p>
-            <p class="note">*Klik salah satu, nanti kasih tau aku via WA ya!</p>
-
-            <div class="gift-grid"> 
-                <div class="gift-item" onclick="pilihHadiah('Boneka Lucu 🧸')">
-                    <span class="emoji">🧸</span>
-                    <span>Boneka</span>
+        <div id="envelopeSection" class="section active">
+            <div class="envelope-wrapper" onclick="openEnvelope()">
+                <div class="envelope">
+                    <div class="front"></div>
+                    <div class="card-preview">
+                        <p>Untuk: Nursita</p>
+                        <i class="fas fa-heart"></i>
+                    </div>
                 </div>
-                <div class="gift-item" onclick="pilihHadiah('Aksesoris Kece 💍')">
-                    <span class="emoji">💍</span>
-                    <span>Aksesoris</span>
+            </div>
+            <p class="instruction">Ketuk suratnya untuk membuka 💌</p>
+        </div>
+
+        <div id="greetingSection" class="section hidden">
+            <div class="glass-card">
+                <div class="profile-icon">👸</div>
+                <h1>Happy 23rd Birthday!</h1>
+                <h2 class="sub-title">Nursita (Si Paling HTS)</h2>
+                
+                <div class="message-box">
+                    <p>Selamat datang di usia 23! 🎉</p>
+                    <p>Semoga di umur baru ini, kebahagiaan kamu makin jelas (sejelas perasaan aku, eaa). Kurang-kurangin overthinking-nya, banyakin makan enak-nya.</p>
+                    <p>Sebelum ambil kado, kita main game kejujuran dulu ya. Siap mental?</p>
                 </div>
-                <div class="gift-item special" onclick="pilihHadiah('Quality Time Seharian 🚗')">
-                    <span class="emoji">🚗🎡🍿</span>
-                    <span>Seharian Bareng (Jalan/Makan/Nonton)</span>
+                
+                <button class="btn-action" onclick="startQuiz()">Gass Main! 🚀</button>
+            </div>
+        </div>
+
+        <div id="quizSection" class="section hidden">
+            <div class="glass-card quiz-card">
+                <div class="progress-bar"><div id="progressFill"></div></div>
+                <h3 id="qQuestion">Loading...</h3>
+                <div id="qOptions" class="options-grid"></div>
+                <p id="feedback" class="feedback-text"></p>
+            </div>
+        </div>
+
+        <div id="giftSection" class="section hidden">
+            <div class="glass-card">
+                <h2>🎁 Pilih Upeti Ulang Tahun</h2>
+                <p>Pilih satu aja ya, jangan serakah wkwk. Klik untuk klaim!</p>
+                
+                <div class="gift-list">
+                    <div class="gift-item" onclick="pilihHadiah('Nonton Bioskop')">
+                        <span class="emoji">🍿</span> Bioskop Date
+                    </div>
+                    <div class="gift-item" onclick="pilihHadiah('Makan Ramen')">
+                        <span class="emoji">🍜</span> Ramen Date
+                    </div>
+                    <div class="gift-item" onclick="pilihHadiah('Sate Maranggi Cipanas')">
+                        <span class="emoji">🍢</span> Sate Maranggi Cipanas
+                    </div>
+                    <div class="gift-item" onclick="pilihHadiah('Boneka')">
+                        <span class="emoji">🧸</span> Boneka Gemoy
+                    </div>
+                    <div class="gift-item" onclick="pilihHadiah('Jalan-jalan Seharian')">
+                        <span class="emoji">🚗</span> Jalan-jalan Seharian
+                    </div>
+                    
+                    <div class="gift-item special-prank" id="btnJail">
+                        <span class="emoji">💍</span> Kepastian Hubungan
+                    </div>
                 </div>
             </div>
         </div>

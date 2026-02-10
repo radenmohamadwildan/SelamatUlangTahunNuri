@@ -1,157 +1,142 @@
 :root {
-    --pink-soft: #ffccd5;
-    --pink-strong: #ff8fa3;
-    --bg-color: #fff0f3;
-    --text-color: #595959;
-    --white: #ffffff;
+    --primary: #FF9A9E;
+    --secondary: #FECFEF;
+    --accent: #a18cd1;
+    --text: #4A4A4A;
+    --white-glass: rgba(255, 255, 255, 0.9);
 }
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
 
 body {
     font-family: 'Poppins', sans-serif;
-    background-color: var(--bg-color);
-    color: var(--text-color);
-    margin: 0;
-    padding: 0;
+    background: #fdfbfb;
+    overflow: hidden; /* Mencegah scroll saat animasi */
+    height: 100vh;
     display: flex;
     justify-content: center;
     align-items: center;
-    min-height: 100vh;
-    overflow: hidden;
+    color: var(--text);
 }
 
-/* Kartu Utama */
-.card {
-    background: var(--white);
+/* Background Blobs Animation */
+.background { position: absolute; width: 100%; height: 100%; z-index: -1; }
+.blob { position: absolute; border-radius: 50%; filter: blur(40px); opacity: 0.6; animation: float 10s infinite alternate; }
+.blob-1 { top: 10%; left: 10%; width: 300px; height: 300px; background: #ff9a9e; animation-delay: 0s; }
+.blob-2 { bottom: 20%; right: 10%; width: 250px; height: 250px; background: #a18cd1; animation-delay: -2s; }
+.blob-3 { top: 40%; left: 40%; width: 200px; height: 200px; background: #fad0c4; animation-delay: -4s; }
+
+@keyframes float {
+    0% { transform: translate(0, 0); }
+    100% { transform: translate(20px, 40px); }
+}
+
+/* Main Layout */
+.main-container {
     width: 90%;
-    max-width: 400px;
-    padding: 30px;
-    border-radius: 20px;
-    box-shadow: 0 10px 25px rgba(255, 143, 163, 0.3);
-    text-align: center;
-    position: relative;
-    z-index: 10;
-}
-
-h1 {
-    font-family: 'Sacramento', cursive;
-    font-size: 2.5rem;
-    color: var(--pink-strong);
-    margin: 0 0 10px 0;
-}
-
-h3 {
-    color: var(--pink-strong);
-}
-
-p {
-    line-height: 1.6;
-    margin-bottom: 20px;
-}
-
-.date {
-    font-weight: bold;
-    color: #888;
-    margin-top: -10px;
-    font-size: 0.9rem;
-}
-
-.note {
-    font-size: 0.8rem;
-    color: var(--pink-strong);
-}
-
-/* Utility Classes */
-.hidden {
-    display: none;
-}
-
-/* Tombol Utama */
-.btn {
-    background-color: var(--pink-strong);
-    color: white;
-    border: none;
-    padding: 12px 30px;
-    border-radius: 50px;
-    font-size: 1rem;
-    cursor: pointer;
-    transition: transform 0.2s;
-    font-weight: 600;
-}
-
-.btn:hover {
-    transform: scale(1.05);
-    background-color: #ff758f;
-}
-
-/* Pilihan Jawaban */
-.options {
+    max-width: 450px;
+    height: 100vh;
     display: flex;
     flex-direction: column;
-    gap: 10px;
+    justify-content: center;
+    position: relative;
 }
 
+.section {
+    display: none;
+    animation: fadeIn 0.8s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+.section.active { display: block; }
+
+/* Glass Card */
+.glass-card {
+    background: var(--white-glass);
+    backdrop-filter: blur(20px);
+    border-radius: 24px;
+    padding: 30px;
+    box-shadow: 0 10px 40px rgba(0,0,0,0.1);
+    border: 1px solid rgba(255,255,255,0.5);
+    text-align: center;
+    transform: translateY(0);
+    transition: transform 0.3s;
+}
+
+h1 { font-family: 'Fredoka One', cursive; color: #ff6b6b; margin-bottom: 5px; }
+.sub-title { font-size: 1rem; color: #888; margin-bottom: 20px; }
+.profile-icon { font-size: 4rem; margin-bottom: 15px; animation: bounce 2s infinite; }
+
+/* Envelope Animation */
+.envelope-wrapper { cursor: pointer; text-align: center; transition: transform 0.3s; }
+.envelope-wrapper:hover { transform: scale(1.05); }
+.envelope {
+    width: 200px; height: 140px; background: #ff6b6b; margin: 0 auto;
+    position: relative; border-radius: 0 0 10px 10px;
+    display: flex; justify-content: center; align-items: center;
+}
+.envelope::before { /* Flap */
+    content: ''; position: absolute; top: 0;
+    border-left: 100px solid transparent; border-right: 100px solid transparent;
+    border-top: 80px solid #ff4757; transform-origin: top; transition: 0.5s;
+}
+.envelope-wrapper:hover .envelope::before { transform: rotateX(180deg); z-index: 0; }
+.card-preview { color: white; font-weight: bold; z-index: 2; }
+.instruction { text-align: center; margin-top: 20px; color: #666; font-size: 0.9rem; }
+
+/* Quiz Styling */
+.options-grid { display: flex; flex-direction: column; gap: 12px; margin-top: 20px; }
 .option-btn {
-    background: var(--pink-soft);
-    color: #d6336c;
-    border: none;
-    padding: 12px;
-    border-radius: 12px;
-    cursor: pointer;
-    font-weight: 500;
+    background: white; border: 2px solid #eee; padding: 15px;
+    border-radius: 15px; font-weight: 600; cursor: pointer;
+    transition: all 0.2s; text-align: left;
+    display: flex; align-items: center; gap: 10px;
+}
+.option-btn:hover { border-color: var(--primary); background: #fff5f5; transform: translateX(5px); }
+
+/* Feedback Animations */
+.shake { animation: shake 0.5s; }
+@keyframes shake {
+    0% { transform: translateX(0); }
+    25% { transform: translateX(-10px); }
+    75% { transform: translateX(10px); }
+    100% { transform: translateX(0); }
+}
+
+/* Gift List */
+.gift-list {
+    display: grid; grid-template-columns: 1fr; gap: 12px;
+    max-height: 400px; overflow-y: auto; padding: 5px;
+}
+.gift-item {
+    background: white; padding: 15px; border-radius: 12px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.05); cursor: pointer;
+    font-weight: 600; display: flex; align-items: center; gap: 10px;
     transition: 0.2s;
 }
+.gift-item:hover { transform: scale(1.02); background: #fff0f5; }
 
-.option-btn:hover {
-    background: var(--pink-strong);
-    color: white;
+/* Tombol Jail */
+.special-prank {
+    background: #ffe0e0; color: #d63031; border: 1px dashed #d63031;
+    position: relative;
 }
 
-/* Grid Hadiah */
-.gift-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 15px;
-    margin-top: 20px;
+/* Music Button */
+#musicBtn {
+    position: fixed; top: 20px; right: 20px;
+    background: white; width: 40px; height: 40px; border-radius: 50%;
+    border: none; box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    z-index: 100; cursor: pointer;
 }
 
-.gift-item {
-    background: #fff;
-    border: 2px solid var(--pink-soft);
-    border-radius: 15px;
-    padding: 15px;
-    cursor: pointer;
-    transition: all 0.3s;
+/* Buttons */
+.btn-action {
+    background: linear-gradient(45deg, #ff9a9e, #fad0c4);
+    border: none; color: white; padding: 12px 30px;
+    border-radius: 50px; font-weight: bold; font-size: 1rem;
+    margin-top: 20px; cursor: pointer;
+    box-shadow: 0 5px 15px rgba(255, 107, 107, 0.4);
 }
 
-.gift-item:hover {
-    border-color: var(--pink-strong);
-    transform: translateY(-5px);
-    background-color: #fff5f7;
-}
-
-.emoji {
-    font-size: 2rem;
-    display: block;
-    margin-bottom: 5px;
-}
-
-.special {
-    grid-column: span 2; /* Agar lebar penuh */
-    background-color: #e3f2fd;
-    border-color: #90caf9;
-    color: #1565c0;
-}
-
-/* Animasi Hati Background */
-.heart-bg {
-    position: absolute;
-    color: var(--pink-strong);
-    opacity: 0.4;
-    top: -10vh;
-    animation: fall linear forwards; 
-    /* forwards agar hilang setelah animasi */
-}
-
-@keyframes fall {
-    to { transform: translateY(110vh); }
-}
+@keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+@keyframes bounce { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-10px); } }
