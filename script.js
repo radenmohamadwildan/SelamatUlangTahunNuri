@@ -126,10 +126,11 @@ function checkAnswer(selectedIndex, element) {
 }
 
 // --- BAGIAN 3: PRANK BUTTON (JAIL) ---
+// --- UPDATE FITUR TOMBOL JAIL ---
 function initPrankButton() {
     const btnJail = document.getElementById('btnJail');
     
-    // Logic Lari-larian
+    // 1. Fungsi agar tombol lari (opsional, bisa dimatikan jika ingin fokus ke dialog)
     const moveBtn = () => {
         const x = Math.random() * (window.innerWidth - 150);
         const y = Math.random() * (window.innerHeight - 150);
@@ -138,12 +139,31 @@ function initPrankButton() {
         btnJail.style.top = y + 'px';
     };
 
-    btnJail.addEventListener('mouseover', moveBtn); // Untuk PC
-    btnJail.addEventListener('click', (e) => { // Untuk HP (kalo kepencet)
-        e.preventDefault();
-        alert("Eits, tombol ini rusak! Belum kebuka kuncinya, soalnya kuncinya ada dikamu 😜");
-        moveBtn();
-    });
+    // Jalankan efek lari hanya di layar lebar (desktop) agar tidak menyulitkan di HP
+    if (window.innerWidth > 768) {
+        btnJail.addEventListener('mouseover', moveBtn);
+    }
+
+    // 2. Logika Dialog Interaktif saat diklik
+    btnJail.onclick = function() {
+        // Dialog Pertama
+        alert("Eits, tombol ini rusak! Belum kebuka kuncinya, soalnya kuncinya ada di kamu... 😜");
+        
+        // Dialog Kedua (Konfirmasi)
+        let yakin = confirm("Yakin mau buka kuncinya sekarang? Kamunya udah siap belum?");
+        
+        if (yakin) {
+            // Jika dia klik "OK"
+            alert("Ciee yang udah siap! Kalau gitu, kabari aku langsung ya pas kita makan sate nanti. Bilang aja: 'Kuncinya mau aku kasih sekarang'. Aku tunggu! ❤️");
+            
+            // Kirim pesan otomatis ke WA kalau dia berani klik siap
+            const pesanSiapp = "Halo! Tadi aku klik tombol 'Hubungan Jelas' di website kamu, dan katanya aku udah siap buka kuncinya... 🤔";
+            window.open(`https://wa.me/${NOMOR_WA}?text=${encodeURIComponent(pesanSiapp)}`, '_blank');
+        } else {
+            // Jika dia klik "Cancel"
+            alert("Yah, gajadi? Yaudah deh, aku tunggu sampai kamu beneran siap ya. Santai aja, aku nggak kemana-mana kok. 😋");
+        }
+    };
 }
 
 // --- KIRIM WA ---
